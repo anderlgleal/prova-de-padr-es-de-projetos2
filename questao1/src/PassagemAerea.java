@@ -14,6 +14,6 @@ public class PassagemAerea extends Passagem {
     }
 
     public String getDocumentosExigidos() {
-        return "Documento de identidade com foto, bilhete eletronico (e-ticket)";
+        return "Documento de identidade com foto, bilhete eletronico";
     }
 }
