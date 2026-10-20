@@ -9,8 +9,8 @@ public abstract class EmissorPassagem {
 
         System.out.println("Modal: " + passagem.getModal());
         System.out.println("Passageiro: " + passagem.getNomePassageiro());
-        System.out.printf("Taxa de embarque: R$ %.2f%n", taxa);
-        System.out.println("Documentos exigidos: " + passagem.getDocumentosExigidos());
+        System.out.printf("Taxa: R$ %.2f%n", taxa);
+        System.out.println("Documentos: " + passagem.getDocumentosExigidos());
         System.out.println();
     }
 }
