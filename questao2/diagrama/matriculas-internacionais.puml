@@ -1,0 +1,100 @@
+@startuml
+' Autor: Anderson Gabriel Leal
+title Matriculas Internacionais - Abstract Factory
+
+skinparam classAttributeIconSize 0
+
+interface FabricaMatricula {
+  + criarDocumentoFiscal() : DocumentoFiscal
+  + criarPagamento() : Pagamento
+  + criarComprovante() : ComprovanteMatricula
+}
+
+class FabricaBrasil {
+  + criarDocumentoFiscal() : DocumentoFiscal
+  + criarPagamento() : Pagamento
+  + criarComprovante() : ComprovanteMatricula
+}
+
+class FabricaChile {
+  + criarDocumentoFiscal() : DocumentoFiscal
+  + criarPagamento() : Pagamento
+  + criarComprovante() : ComprovanteMatricula
+}
+
+interface DocumentoFiscal {
+  + descrever(valor : double) : String
+}
+
+interface Pagamento {
+  + descrever(valor : double) : String
+}
+
+interface ComprovanteMatricula {
+  + descrever(nomeAluno : String, documentoAluno : String) : String
+}
+
+class NfsE {
+  + descrever(valor : double) : String
+}
+
+class BoletaElectronica {
+  + descrever(valor : double) : String
+}
+
+class PagamentoPix {
+  + descrever(valor : double) : String
+}
+
+class PagamentoWebpay {
+  + descrever(valor : double) : String
+}
+
+class ComprovanteCpf {
+  + descrever(nomeAluno : String, documentoAluno : String) : String
+}
+
+class ComprovanteRut {
+  + descrever(nomeAluno : String, documentoAluno : String) : String
+}
+
+class Matricula {
+  - fabrica : FabricaMatricula
+  - nomeAluno : String
+  - documentoAluno : String
+  - valor : double
+  + Matricula(fabrica : FabricaMatricula, nomeAluno : String, documentoAluno : String, valor : double)
+  + confirmar() : void
+}
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+FabricaMatricula <|.. FabricaBrasil
+FabricaMatricula <|.. FabricaChile
+
+DocumentoFiscal <|.. NfsE
+DocumentoFiscal <|.. BoletaElectronica
+Pagamento <|.. PagamentoPix
+Pagamento <|.. PagamentoWebpay
+ComprovanteMatricula <|.. ComprovanteCpf
+ComprovanteMatricula <|.. ComprovanteRut
+
+FabricaBrasil ..> NfsE : cria
+FabricaBrasil ..> PagamentoPix : cria
+FabricaBrasil ..> ComprovanteCpf : cria
+
+FabricaChile ..> BoletaElectronica : cria
+FabricaChile ..> PagamentoWebpay : cria
+FabricaChile ..> ComprovanteRut : cria
+
+Matricula o--> FabricaMatricula
+Matricula ..> DocumentoFiscal
+Matricula ..> Pagamento
+Matricula ..> ComprovanteMatricula
+
+Main ..> Matricula
+Main ..> FabricaBrasil
+Main ..> FabricaChile
+@enduml

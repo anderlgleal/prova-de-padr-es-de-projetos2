@@ -1,0 +1,69 @@
+@startuml
+' Autor: Anderson Gabriel Leal
+title Emissao de Passagens - Factory Method
+
+skinparam classAttributeIconSize 0
+
+abstract class EmissorPassagem {
+  # {abstract} criarPassagem(nomePassageiro : String, valorTarifa : double) : Passagem
+  + emitir(nomePassageiro : String, valorTarifa : double) : void
+}
+
+class EmissorPassagemAerea {
+  # criarPassagem(nomePassageiro : String, valorTarifa : double) : Passagem
+}
+
+class EmissorPassagemRodoviaria {
+  # criarPassagem(nomePassageiro : String, valorTarifa : double) : Passagem
+}
+
+class EmissorPassagemFerroviaria {
+  # criarPassagem(nomePassageiro : String, valorTarifa : double) : Passagem
+}
+
+abstract class Passagem {
+  # nomePassageiro : String
+  # valorTarifa : double
+  + {abstract} getModal() : String
+  + {abstract} calcularTaxaEmbarque() : double
+  + {abstract} getDocumentosExigidos() : String
+  + getNomePassageiro() : String
+}
+
+class PassagemAerea {
+  + getModal() : String
+  + calcularTaxaEmbarque() : double
+  + getDocumentosExigidos() : String
+}
+
+class PassagemRodoviaria {
+  + getModal() : String
+  + calcularTaxaEmbarque() : double
+  + getDocumentosExigidos() : String
+}
+
+class PassagemFerroviaria {
+  + getModal() : String
+  + calcularTaxaEmbarque() : double
+  + getDocumentosExigidos() : String
+}
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+EmissorPassagem <|-- EmissorPassagemAerea
+EmissorPassagem <|-- EmissorPassagemRodoviaria
+EmissorPassagem <|-- EmissorPassagemFerroviaria
+
+Passagem <|-- PassagemAerea
+Passagem <|-- PassagemRodoviaria
+Passagem <|-- PassagemFerroviaria
+
+EmissorPassagem ..> Passagem
+EmissorPassagemAerea ..> PassagemAerea : cria
+EmissorPassagemRodoviaria ..> PassagemRodoviaria : cria
+EmissorPassagemFerroviaria ..> PassagemFerroviaria : cria
+
+Main ..> EmissorPassagem
+@enduml
